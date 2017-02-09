@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Real-Time Surveys built with Realm</title>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div>
+            <div>
+                <nav class="navbar navbar-inverse" role="navigation" style="padding-left:130px;">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/">Home<span class="sr-only">(current)</span></a></li>
+                        <!--                   <li><a href="/about">About us</a></li> -->
+                    </ul>
+                </nav>
+            </div>
+            <br/>
+            <div class="container theme-showcase" role="main">
+                <!-- Main jumbotron for a primary marketing message or call to action -->
+                <div class="jumbotron">
+                    <h1>Real-Time Survey</h1>
+                    <p>Built with &hearts; by Realm</p>
+                </div>
+                <div class="page-header">
+                    <h1>Add Survey Questions</h1>
+                </div>
+                <div class="container">
+                    <form class="form-signin">
+                        <label for="inputQuestion" class="sr-only">Question?</label>
+                        <input type="question" id="inputQuestion" class="form-control" placeholder="Question" required autofocus>
+                        <br/>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+                    </form>
+                </div>
+                <div class="page-header">
+                    <h1>Responses</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Question</th>
+                                    <th>Responses</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Are you currently an Android Developer?</td>
+                                    <td>
+                                        <b>Yes</b> (6) <b>No</b> (2)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Are you using Realm?</td>
+                                    <td>
+                                        <b>Yes</b> (6) <b>No</b> (2)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

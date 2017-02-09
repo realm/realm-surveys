@@ -1,0 +1,20 @@
+{
+  "name": "RealmSurveyServer",
+  "version": "1.0.0",
+  "description": "Create yes no surveys and let people answer",
+  "main": "survey.js",
+  "dependencies": {
+	  "realm": "file:realm-1.0.0-BETA-6.0-professional.tgz",
+    "express" : "latest"  
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "realm",
+    "survey"
+  ],
+  "author": "em@realm.io",
+  "license": "MIT"
+}
