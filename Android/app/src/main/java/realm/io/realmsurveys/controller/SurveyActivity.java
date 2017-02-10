@@ -7,26 +7,30 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import java.util.Date;
+import java.util.UUID;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.realm.ObjectServerError;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
 import io.realm.SyncConfiguration;
 import io.realm.SyncCredentials;
+import io.realm.SyncManager;
 import io.realm.SyncUser;
 import realm.io.realmsurveys.BuildConfig;
 import realm.io.realmsurveys.R;
 import realm.io.realmsurveys.model.Question;
 
-public class SurveyActivity extends AppCompatActivity {
+public class SurveyActivity extends AppCompatActivity implements SurveyResponseHandler {
 
     public static final String REALM_URL = "realm://" + BuildConfig.OBJECT_SERVER_IP + ":9080/~/survey";
     public static final String AUTH_URL = "http://" + BuildConfig.OBJECT_SERVER_IP + ":9080/auth";
-    public static final String ID = "default@realm";
+    public static final String ID = "surveys@realm.io";
     public static final String PASSWORD = "password";
 
-    public RecyclerView recyclerView;
+    @BindView(R.id.questionsList) public RecyclerView recyclerView;
 
     private Realm realm;
 
@@ -34,6 +38,7 @@ public class SurveyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
+        ButterKnife.bind(this);
         initRealm();
     }
 
@@ -59,7 +64,7 @@ public class SurveyActivity extends AppCompatActivity {
                 .where(Question.class)
                 .findAllSortedAsync("timestamp", Sort.DESCENDING);
 
-        recyclerView.setAdapter(new QuestionViewAdapter(this, questions));
+        recyclerView.setAdapter(new QuestionViewAdapter(this, questions, true));
 
     }
 
@@ -77,6 +82,7 @@ public class SurveyActivity extends AppCompatActivity {
                     for(String q : dummyQuestions) {
                         Question question = new Question();
                         question.setTimestamp(new Date());
+                        question.setQuestionId(UUID.randomUUID().toString());
                         question.setQuestionText(q);
                         realm.copyToRealm(question);
                     }
@@ -91,6 +97,7 @@ public class SurveyActivity extends AppCompatActivity {
         if(syncUser != null)  {
             syncUser.logout();
         }
+
         final SyncCredentials syncCredentials = SyncCredentials.usernamePassword(ID, PASSWORD, false);
         SyncUser.loginAsync(syncCredentials, AUTH_URL, new SyncUser.Callback() {
             @Override
@@ -111,6 +118,11 @@ public class SurveyActivity extends AppCompatActivity {
 
     private void logError(Throwable e) {
         Log.e("SurveyActivity", e.getMessage());
+    }
+
+    @Override
+    public void onQuestionAnswered(String questionId, boolean response) {
+        // Update the question/
     }
 
 }

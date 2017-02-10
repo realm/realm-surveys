@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/cardview_light_background"
+    android:layout_margin="5dp">
+
+<RelativeLayout
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -24,22 +30,27 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/yesBtn"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Yes"
-            />
+            android:textColor="@color/survey_btn_text_color"
+            app:backgroundTint="@color/survey_btn_background_tint" />
 
-        <Button
+
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/noBtn"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="No"
-            />
+            android:textColor="@color/survey_btn_text_color"
+            app:backgroundTint="@color/survey_btn_background_tint" />
 
     </LinearLayout>
 
 </RelativeLayout>
+
+</android.support.v7.widget.CardView>

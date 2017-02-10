@@ -4,14 +4,27 @@ import java.util.Date;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
 public class Question extends RealmObject {
+
+    @PrimaryKey
+    @Required
+    private String questionId;
 
     private Date timestamp;
 
     @Required
     private String questionText;
+
+    public String getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
+    }
 
     private RealmList<Answer> answers;
 

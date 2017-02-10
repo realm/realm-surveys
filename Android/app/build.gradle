@@ -11,8 +11,8 @@ android {
     }
 
     defaultConfig {
-        applicationId "realm.io.realmpop"
-        minSdkVersion 17
+        applicationId "realm.io.realmsurveys"
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -34,11 +34,12 @@ android {
         def host = getIP()
         def cloudHost = "45.55.167.56";  // Digital Ocean IP address.
 
+
         debug {
             // This will automatically detect the IP address of the machine building RealmTasks.
             // It is assumed that this machine is also running the Object Server.
             // If not, replace 'host' with the IP of the machine hosting the server.
-            buildConfigField "String", "OBJECT_SERVER_IP", "\"${host}\""
+            buildConfigField "String", "OBJECT_SERVER_IP", "\"${cloudHost}\""
 
         }
 
