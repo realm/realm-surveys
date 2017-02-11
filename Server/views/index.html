@@ -7,6 +7,12 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <style type="text/css">
+            .realm {
+                color:#ffffff;
+                background-color:#59539E
+            }
+        </style>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <script src="script.js"></script>
     </head>
@@ -23,9 +29,9 @@
             <br/>
             <div class="container theme-showcase" role="main">
                 <!-- Main jumbotron for a primary marketing message or call to action -->
-                <div class="jumbotron">
+                <div class="jumbotron realm">
                     <h1>Real-Time Survey</h1>
-                    <p>Built with &hearts; by Realm</p>
+                    <p>Built with <span style="color:red;">&hearts;</span> by Realm</p>
                 </div>
                 <div class="page-header">
                     <h1>Add Survey Questions</h1>
@@ -35,7 +41,7 @@
                         <label for="inputQuestion" class="sr-only">Question?</label>
                         <input type="question" id="inputQuestion" class="form-control" placeholder="Question" required autofocus>
                         <br/>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+                        <button class="btn btn-lg btn-primary btn-block realm" type="submit">Add</button>
                     </form>
                 </div>
                 <div class="page-header">
