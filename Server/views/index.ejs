@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+    <head>
+        <meta charset="UTF-8">
+        <title>Real-Time Surveys built with Realm</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <ng-view></ng-view>
+
+
+        <!-- Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>    
+
+        <script type="text/ng-template" id="/questions.html">
+
+        <div>
+            <div>
+                <nav class="navbar navbar-inverse" role="navigation" style="padding-left:130px;"></nav>
+            </div>
+            <br/>
+            <div class="container theme-showcase" role="main">
+                <!-- Main jumbotron for a primary marketing message or call to action -->
+                <div class="jumbotron realm-banner">
+                    <h1>Real-Time Survey</h1>
+                    <p>Built with <span style="color:red;">&hearts;</span> by Realm</p>
+                </div>
+
+
+            <div class="page-header">
+                <h1>Add Survey Questions</h1>
+            </div>
+            <div class="container">
+                <form class="form-signin">
+                    <label for="inputQuestion" class="sr-only">Question?</label>
+                    <input type="text" ng-model="newQuestion" class="form-control" placeholder="Question" required autofocus>
+                    <br/>
+                    <button class="btn btn-lg btn-primary btn-block realm" ng-click="addQuestion()">Add</button>
+                </form>
+            </div>
+            <div class="page-header">
+                <h1>Responses</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Delete</th>
+                                <th>Question</th>
+                                <th>Responses</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="question in questions">
+                                <td><button class="btn btn-small btn-primary realm" 
+                                     ng-show="!editing[$index]" 
+                                     ng-click="remove($index)">remove</button>
+                                </td>
+                                <td> {{ question.text }}</td>
+                                <td>
+                                    <b>Yes</b> ({{question.yesCount}}) <b>No</b> ({{question.noCount}})
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        </script>
+
+
+        <script>
+
+
+        angular.module('app', ['ngRoute', 'ngResource'])
+
+            //---------------
+            // Services
+            //---------------
+
+            .factory('Questions', ['$resource', function($resource){
+              return $resource('/questions/:id', null, {
+                'update': { method:'PUT' }
+              }
+              );
+            }])
+
+            //---------------
+            // Controllers
+            //---------------
+
+            .controller('QuestionController', ['$scope', 'Questions', function ($scope, Questions) {
+              $scope.questions = Questions.query();
+
+              $scope.addQuestion = function(){
+                if(!$scope.newQuestion || $scope.newQuestion.length < 1) return;
+                var question = new Questions({ text: $scope.newQuestion, yesCount: 0, noCount: 0 });
+
+                question.$save(function(){
+                  $scope.questions.push(question);
+                  $scope.newQuestion = ''; // clear textbox
+                });
+              }
+
+              $scope.remove = function(index){
+                var question = $scope.questions[index];
+                Questions.remove({id: question._id}, function(){
+                  $scope.questions.splice(index, 1); // remove from UI list
+                });
+              }
+            }])
+
+            //---------------
+            // Routes
+            //---------------
+
+            .config(['$routeProvider', function ($routeProvider) {
+              $routeProvider
+                .when('/', {
+                  templateUrl: '/questions.html',
+                  controller: 'QuestionController'
+                })
+            }]);
+
+        </script>
+    </body>
+</html>

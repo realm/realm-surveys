@@ -9,7 +9,6 @@ const REALM_ADMIN_TOKEN = "ewoJImlkZW50aXR5IjogIl9fYXV0aCIsCgkiYWNjZXNzIjogWyJ1c
 
 const IP = '192.168.1.79';
 
-var fs = require('fs');
 var Realm = require('realm');
 
 function isRealmObject(x) {

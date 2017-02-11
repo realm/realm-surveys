@@ -1,0 +1,51 @@
+.realm-banner {
+  color: #ffffff; 
+  background-color: #611BBD; 
+  border-color: #130269; 	
+}
+
+.realm { 
+  color: #ffffff; 
+  background-color: #611BBD; 
+  border-color: #130269; 
+} 
+ 
+.realm:hover, 
+.realm:focus, 
+.realm:active, 
+.realm.active, 
+.open .dropdown-toggle.realm { 
+  color: #ffffff; 
+  background-color: #49247A; 
+  border-color: #130269; 
+} 
+ 
+.realm:active, 
+.realm.active, 
+.open .dropdown-toggle.realm { 
+  background-image: none; 
+} 
+ 
+.realm.disabled, 
+.realm[disabled], 
+fieldset[disabled] .realm, 
+.realm.disabled:hover, 
+.realm[disabled]:hover, 
+fieldset[disabled] .realm:hover, 
+.realm.disabled:focus, 
+.realm[disabled]:focus, 
+fieldset[disabled] .realm:focus, 
+.realm.disabled:active, 
+.realm[disabled]:active, 
+fieldset[disabled] .realm:active, 
+.realm.disabled.active, 
+.realm[disabled].active, 
+fieldset[disabled] .realm.active { 
+  background-color: #611BBD; 
+  border-color: #130269; 
+} 
+ 
+.realm .badge { 
+  color: #611BBD; 
+  background-color: #ffffff; 
+}
