@@ -8,9 +8,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="SurveyButton" parent="@style/Widget.AppCompat.Button.Colored">
-        <item name="android:colorButtonNormal">@android:color/darker_gray</item>
-        <item name="android:state_enabled">@android:color/darker_gray</item>
-    </style>
-
 </resources>

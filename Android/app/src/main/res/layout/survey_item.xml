@@ -30,24 +30,28 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatButton
+       <Button
+            style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/yesBtn"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Yes"
             android:textColor="@color/survey_btn_text_color"
-            app:backgroundTint="@color/survey_btn_background_tint" />
+            android:backgroundTint="@color/survey_btn_background_tint"/>
 
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/noBtn"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="No"
             android:textColor="@color/survey_btn_text_color"
-            app:backgroundTint="@color/survey_btn_background_tint" />
+            android:backgroundTint="@color/survey_btn_background_tint"
+            android:elevation="0px"
+            />
 
     </LinearLayout>
 
