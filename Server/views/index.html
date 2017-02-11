@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="app">
     <head>
         <meta charset="UTF-8">
         <title>Real-Time Surveys built with Realm</title>
@@ -13,10 +13,36 @@
                 background-color:#59539E
             }
         </style>
+        <script type="text/javascript">
+
+            angular.module('app', [])
+              .controller('QuestionController', ['$scope', function ($scope) {
+               
+                    $scope.formData = {};
+                    $scope.questions =  [
+                        { text: 'Do you like ice cream?', yesCount: 16, noCount: 4 },
+                        { text: 'Are you an Android Developer?', yesCount: 11, noCount: 2 },
+                        { text: 'Are you using Realm?', yesCount: 37, noCount: 12 }
+                    ];
+
+                    // when submitting the add form, send the text to the node API
+                    $scope.addQuestion = function() {
+                         var questionText = $scope.formData.questionText;
+                    };
+
+                    // delete a todo after checking it
+                    $scope.deleteQuestion = function(id) {
+
+                    };
+
+
+              }]);
+
+        </script>
+
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <script src="script.js"></script>
     </head>
-    <body>
+    <body ng-controller="QuestionController">
         <div>
             <div>
                 <nav class="navbar navbar-inverse" role="navigation" style="padding-left:130px;">
@@ -39,9 +65,9 @@
                 <div class="container">
                     <form class="form-signin">
                         <label for="inputQuestion" class="sr-only">Question?</label>
-                        <input type="question" id="inputQuestion" class="form-control" placeholder="Question" required autofocus>
+                        <input ng-model="formData.questionText" type="question" id="inputQuestion" class="form-control" placeholder="Question" required autofocus>
                         <br/>
-                        <button class="btn btn-lg btn-primary btn-block realm" type="submit">Add</button>
+                        <button class="btn btn-lg btn-primary btn-block realm" type="submit" ng-click="addQuestion()">Add</button>
                     </form>
                 </div>
                 <div class="page-header">
@@ -52,24 +78,15 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Question</th>
                                     <th>Responses</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Are you currently an Android Developer?</td>
+                                <tr ng-repeat="question in questions">
+                                    <td> {{ question.text }}</td>
                                     <td>
-                                        <b>Yes</b> (6) <b>No</b> (2)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Are you using Realm?</td>
-                                    <td>
-                                        <b>Yes</b> (6) <b>No</b> (2)
+                                        <b>Yes</b> ({{question.yesCount}}) <b>No</b> ({{question.noCount}})
                                     </td>
                                 </tr>
                             </tbody>
@@ -78,5 +95,7 @@
                 </div>
             </div>
         </div>
+
+
     </body>
 </html>
