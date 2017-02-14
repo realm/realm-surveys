@@ -26,12 +26,15 @@ let syncURL = URL(string: "realm://\(host):9080/~/survey")!
 class ViewController: NSViewController {
     @IBOutlet var tableView: NSTableView!
 
+    @IBOutlet weak var newQuestionText: NSTextField!
+    
+    
     var realm: Realm?
     var questions: Results<Question>?
     var questionsToken: NotificationToken?
     var scores = [SurveyResult]()
     
-    override func viewDidAppear() {
+    override func viewWillAppear() {
         super.viewDidAppear()
         connect { [unowned self] in
             self.realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration)
@@ -54,6 +57,8 @@ class ViewController: NSViewController {
         questionsToken?.stop()
     }
 
+    
+    
     func refresh() {
         
         if self.questions == nil {
@@ -83,6 +88,34 @@ class ViewController: NSViewController {
     
         tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now()+5, execute: refresh)
+    }
+    
+    @IBAction func addNewQuestion(_ sender: Any) {
+        
+        let newQuestionText = self.newQuestionText.stringValue
+        
+        if newQuestionText.isEmpty == false
+            && self.realm != nil {
+            
+            if newQuestionText == "clear" {
+                try! self.realm!.write {
+                    self.realm!.deleteAll()
+                }
+                
+            } else {
+                try! self.realm!.write {
+                    let questionCount = (self.questions?.count ?? 0) + 1
+                    let newQuestion = Question(
+                        questionId: String(format: "%d", questionCount),
+                        questionText: self.newQuestionText.stringValue)
+                    realm?.add(newQuestion)
+                }
+            }
+            
+            self.newQuestionText.stringValue = ""
+            
+        }
+        
     }
     
     

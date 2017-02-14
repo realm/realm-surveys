@@ -57,8 +57,6 @@ public class SurveyActivity extends AppCompatActivity implements SurveyResponseH
     }
 
     private void postLogin() {
-        createDummyDataIfNeeded();
-        // hide progress indicator.
         initRecyclerView();
     }
 
@@ -68,34 +66,14 @@ public class SurveyActivity extends AppCompatActivity implements SurveyResponseH
                 .where(Question.class)
                 .isEmpty("answers")
                 .or()
-                .notEqualTo("answers.userId", SharedPrefsUtils.getInstance().uniqueUserId())
-                .findAllSorted("timestamp", Sort.DESCENDING);
+                .beginGroup()
+                .not()
+                .contains("answers.userId", SharedPrefsUtils.getInstance().uniqueUserId())
+                .endGroup()
+                .findAllSortedAsync("timestamp");
 
         recyclerView.setAdapter(new QuestionViewAdapter(this, questions, true));
 
-    }
-
-    public void createDummyDataIfNeeded() {
-
-        final String[] dummyQuestions = new String[] {
-                "Are you currently an Android Developer?",
-                "Do you like chocolate icecream?",
-                "Do you like donuts?",
-                "Did we really land on the moon?"
-        };
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm txRealm) {
-                txRealm.deleteAll();
-                for(String q : dummyQuestions) {
-                    Question question = new Question();
-                    question.setTimestamp(new Date());
-                    question.setQuestionId(UUID.randomUUID().toString());
-                    question.setQuestionText(q);
-                    realm.copyToRealm(question);
-                }
-            }
-        });
     }
 
     private void initRealm() {
