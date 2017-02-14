@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import RealmSwift
 
 struct SurveyResult {
     let question: String
@@ -14,25 +15,99 @@ struct SurveyResult {
     let noCount: Int
 }
 
-let scores = [ SurveyResult(question: "Do you like icecream?", yesCount: 12, noCount: 2),
-               SurveyResult(question: "Do you like icecream?", yesCount: 12, noCount: 2),
-               SurveyResult(question: "Do you like icecream?", yesCount: 12, noCount: 2)];
+let host = "45.55.167.56"
+let user = "survey@demo.io"
+let pass = "password"
+
+let serverURL = URL(string: "http://\(host):9080")!
+let syncURL = URL(string: "realm://\(host):9080/~/survey")!
+
 
 class ViewController: NSViewController {
     @IBOutlet var tableView: NSTableView!
-    
-    var results: [SurveyResult]?
+
+    var realm: Realm?
+    var questions: Results<Question>?
+    var questionsToken: NotificationToken?
+    var scores = [SurveyResult]()
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        refresh()
+        connect { [unowned self] in
+            self.realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration)
+            if let realm = self.realm {
+                self.questions =
+                    realm.objects(Question.self)
+                        .sorted(byKeyPath: Question.primaryKey()!)
+                
+                self.questionsToken =
+                    self.questions?.addNotificationBlock { [weak self] changes in
+                        self?.refresh()
+                }
+                self.refresh();
+            }
+        }
+    }
+    
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        questionsToken?.stop()
     }
 
     func refresh() {
+        
+        if self.questions == nil {
+            return
+        }
+        
+        scores.removeAll()
+        for question in self.questions! {
+            
+            var yesCount = 0
+            var noCount = 0
+            if question.answers.isEmpty == false {
+                yesCount = question.answers.filter(
+                    NSPredicate(format:"response == true")).count
+                noCount = question.answers.filter(
+                    NSPredicate(format:"response == false")).count
+            }
+            
+            scores.append(
+                SurveyResult(
+                    question: question.questionText,
+                    yesCount: yesCount,
+                    noCount : noCount)
+            )
+        }
+    
+    
         tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now()+5, execute: refresh)
     }
+    
+    
+    func connect(completion: @escaping () -> Void) {
+        let cred = SyncCredentials.usernamePassword(
+            username: user, password: pass, register: false)
+        
+        SyncUser.logIn(with: cred, server: serverURL) {user, error in
+            guard let user = user else {
+                return DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    self.connect(completion: completion)
+                }
+            }
+            
+            var config = Realm.Configuration.defaultConfiguration
+            config.schemaVersion = 1
+            config.syncConfiguration = SyncConfiguration(user: user, realmURL: syncURL)
+            Realm.Configuration.defaultConfiguration = config
+            
+            DispatchQueue.main.async(execute: completion)
+        }
+    }
+    
 }
+
 
 extension ViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {

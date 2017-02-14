@@ -12,6 +12,7 @@
 		9C4A43C91E4A18F0003860FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C4A43C81E4A18F0003860FE /* Assets.xcassets */; };
 		9C4A43CC1E4A18F0003860FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C4A43CA1E4A18F0003860FE /* Main.storyboard */; };
 		B51AFC74846C69E283E5E212 /* Pods_PopBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555E16E33C635D2A828CA7A5 /* Pods_PopBoard.framework */; };
+		FB233D0C1E52CF2F0075D48E /* RealmModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB233D0B1E52CF2F0075D48E /* RealmModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		9C4A43CB1E4A18F0003860FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9C4A43CD1E4A18F0003860FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B39DDF29DAB5988DADB449A1 /* Pods-PopBoard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopBoard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopBoard/Pods-PopBoard.debug.xcconfig"; sourceTree = "<group>"; };
+		FB233D0B1E52CF2F0075D48E /* RealmModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 			children = (
 				9C4A43C41E4A18F0003860FE /* AppDelegate.swift */,
 				9C4A43C61E4A18F0003860FE /* ViewController.swift */,
+				FB233D0B1E52CF2F0075D48E /* RealmModels.swift */,
 				9C4A43C81E4A18F0003860FE /* Assets.xcassets */,
 				9C4A43CA1E4A18F0003860FE /* Main.storyboard */,
 				9C4A43CD1E4A18F0003860FE /* Info.plist */,
@@ -208,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB233D0C1E52CF2F0075D48E /* RealmModels.swift in Sources */,
 				9C4A43C71E4A18F0003860FE /* ViewController.swift in Sources */,
 				9C4A43C51E4A18F0003860FE /* AppDelegate.swift in Sources */,
 			);
