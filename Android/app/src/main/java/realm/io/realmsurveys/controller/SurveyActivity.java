@@ -153,7 +153,7 @@ public class SurveyActivity extends AppCompatActivity implements SurveyResponseH
                     }
                 });
             }
-        }, 1000);
+        }, 500);
     }
 
 }

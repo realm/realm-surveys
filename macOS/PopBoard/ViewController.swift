@@ -8,16 +8,20 @@
 
 import Cocoa
 
-struct Score {
-    let name: String
-    let time: Double
+struct SurveyResult {
+    let question: String
+    let yesCount: Int
+    let noCount: Int
 }
+
+let scores = [ SurveyResult(question: "Do you like icecream?", yesCount: 12, noCount: 2),
+               SurveyResult(question: "Do you like icecream?", yesCount: 12, noCount: 2),
+               SurveyResult(question: "Do you like icecream?", yesCount: 12, noCount: 2)];
 
 class ViewController: NSViewController {
     @IBOutlet var tableView: NSTableView!
     
-    var scores: [Score]?
-    let file = ScoresFile("board.txt")
+    var results: [SurveyResult]?
     
     override func viewDidAppear() {
         super.viewDidAppear()
@@ -25,13 +29,6 @@ class ViewController: NSViewController {
     }
 
     func refresh() {
-        scores = file.scores()
-        guard scores != nil else {
-            let alert = NSAlert()
-            alert.informativeText = "Couldn't load \(file.file.absoluteString)"
-            alert.beginSheetModal(for: view.window!, completionHandler: nil)
-            return
-        }
         tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now()+5, execute: refresh)
     }
@@ -39,20 +36,28 @@ class ViewController: NSViewController {
 
 extension ViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return scores?.count ?? 0
+        return scores.count
     }
 }
 
 extension ViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let id = tableColumn!.identifier == "name" ? "NameCell" : "TimeCell"
-        guard let cell = tableView.make(withIdentifier: id, owner: nil) as? NSTableCellView,
-            let scores = scores else {
+        
+        guard let cell = tableView.make(
+            withIdentifier: tableColumn!.identifier,
+            owner: nil) as? NSTableCellView else {
             return nil
         }
 
         let score = scores[row]
-        cell.textField?.stringValue = tableColumn!.identifier == "name" ? score.name : String(format: "%.4f", score.time)
+        
+        if tableColumn!.identifier == "question" {
+            cell.textField?.stringValue = score.question
+        } else if tableColumn!.identifier == "yesCount" {
+            cell.textField?.stringValue = String(format: "%d", score.yesCount)
+        } else if tableColumn!.identifier == "noCount" {
+            cell.textField?.stringValue = String(format: "%d", score.noCount)
+        }
         return cell
     }
 

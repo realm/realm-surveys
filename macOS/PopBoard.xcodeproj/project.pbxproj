@@ -11,7 +11,6 @@
 		9C4A43C71E4A18F0003860FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4A43C61E4A18F0003860FE /* ViewController.swift */; };
 		9C4A43C91E4A18F0003860FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C4A43C81E4A18F0003860FE /* Assets.xcassets */; };
 		9C4A43CC1E4A18F0003860FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C4A43CA1E4A18F0003860FE /* Main.storyboard */; };
-		9C4A43D41E4A1BF0003860FE /* ScoresFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4A43D31E4A1BF0003860FE /* ScoresFile.swift */; };
 		B51AFC74846C69E283E5E212 /* Pods_PopBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555E16E33C635D2A828CA7A5 /* Pods_PopBoard.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +23,6 @@
 		9C4A43C81E4A18F0003860FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C4A43CB1E4A18F0003860FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9C4A43CD1E4A18F0003860FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9C4A43D31E4A1BF0003860FE /* ScoresFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoresFile.swift; sourceTree = "<group>"; };
 		B39DDF29DAB5988DADB449A1 /* Pods-PopBoard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopBoard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopBoard/Pods-PopBoard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,7 +69,6 @@
 			children = (
 				9C4A43C41E4A18F0003860FE /* AppDelegate.swift */,
 				9C4A43C61E4A18F0003860FE /* ViewController.swift */,
-				9C4A43D31E4A1BF0003860FE /* ScoresFile.swift */,
 				9C4A43C81E4A18F0003860FE /* Assets.xcassets */,
 				9C4A43CA1E4A18F0003860FE /* Main.storyboard */,
 				9C4A43CD1E4A18F0003860FE /* Info.plist */,
@@ -212,7 +209,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C4A43C71E4A18F0003860FE /* ViewController.swift in Sources */,
-				9C4A43D41E4A1BF0003860FE /* ScoresFile.swift in Sources */,
 				9C4A43C51E4A18F0003860FE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -370,6 +366,7 @@
 				9C4A43D21E4A18F0003860FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
