@@ -11,10 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
+import java.util.UUID;
 
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import realm.io.realmsurveys.R;
+import realm.io.realmsurveys.SharedPrefsUtils;
 import realm.io.realmsurveys.model.Question;
 
 public class QuestionViewAdapter extends RealmRecyclerViewAdapter<Question, QuestionViewAdapter.ViewHolder> {
@@ -39,6 +41,8 @@ public class QuestionViewAdapter extends RealmRecyclerViewAdapter<Question, Ques
         final Question question = getData().get(position);
 
         holder.questionText.setText(question.getQuestionText());
+        holder.yesButton.setEnabled(true);
+        holder.noButton.setEnabled(true);
 
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override

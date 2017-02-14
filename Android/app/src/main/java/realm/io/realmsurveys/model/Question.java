@@ -12,8 +12,8 @@ public class Question extends RealmObject {
     @PrimaryKey
     @Required
     private String questionId;
-
     private Date timestamp;
+    private RealmList<Answer> answers;
 
     @Required
     private String questionText;
@@ -25,8 +25,6 @@ public class Question extends RealmObject {
     public void setQuestionId(String questionId) {
         this.questionId = questionId;
     }
-
-    private RealmList<Answer> answers;
 
     public Date getTimestamp() {
         return timestamp;

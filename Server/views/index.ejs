@@ -130,6 +130,18 @@
                 })
             }]);
 
+
+            var handleCallback = function (msg) {
+                $scope.$apply(function () {
+                    //$scope.msg = JSON.parse(msg.data)
+                    console.log(msg.data);
+                    $scope.questions = Questions.query();
+                });
+            }
+
+            var source = new EventSource('/questions');
+            source.addEventListener('message', handleCallback, false);
+
         </script>
     </body>
 </html>

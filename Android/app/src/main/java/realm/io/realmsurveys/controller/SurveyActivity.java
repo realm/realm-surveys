@@ -1,5 +1,7 @@
 package realm.io.realmsurveys.controller;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -21,13 +23,15 @@ import io.realm.SyncManager;
 import io.realm.SyncUser;
 import realm.io.realmsurveys.BuildConfig;
 import realm.io.realmsurveys.R;
+import realm.io.realmsurveys.SharedPrefsUtils;
+import realm.io.realmsurveys.model.Answer;
 import realm.io.realmsurveys.model.Question;
 
 public class SurveyActivity extends AppCompatActivity implements SurveyResponseHandler {
 
     public static final String REALM_URL = "realm://" + BuildConfig.OBJECT_SERVER_IP + ":9080/~/survey";
     public static final String AUTH_URL = "http://" + BuildConfig.OBJECT_SERVER_IP + ":9080/auth";
-    public static final String ID = "surveys@realm.io";
+    public static final String ID = "survey@demo.io";
     public static final String PASSWORD = "password";
 
     @BindView(R.id.questionsList) public RecyclerView recyclerView;
@@ -62,33 +66,36 @@ public class SurveyActivity extends AppCompatActivity implements SurveyResponseH
 
         RealmResults<Question> questions = realm
                 .where(Question.class)
-                .findAllSortedAsync("timestamp", Sort.DESCENDING);
+                .isEmpty("answers")
+                .or()
+                .notEqualTo("answers.userId", SharedPrefsUtils.getInstance().uniqueUserId())
+                .findAllSorted("timestamp", Sort.DESCENDING);
 
         recyclerView.setAdapter(new QuestionViewAdapter(this, questions, true));
 
     }
 
     public void createDummyDataIfNeeded() {
-        boolean isDatabaseEmpty = realm.where(Question.class).count() == 0;
 
         final String[] dummyQuestions = new String[] {
                 "Are you currently an Android Developer?",
-                "Do you like chocolate icecream?"
+                "Do you like chocolate icecream?",
+                "Do you like donuts?",
+                "Did we really land on the moon?"
         };
-        if(isDatabaseEmpty) {
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm txRealm) {
-                    for(String q : dummyQuestions) {
-                        Question question = new Question();
-                        question.setTimestamp(new Date());
-                        question.setQuestionId(UUID.randomUUID().toString());
-                        question.setQuestionText(q);
-                        realm.copyToRealm(question);
-                    }
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm txRealm) {
+                txRealm.deleteAll();
+                for(String q : dummyQuestions) {
+                    Question question = new Question();
+                    question.setTimestamp(new Date());
+                    question.setQuestionId(UUID.randomUUID().toString());
+                    question.setQuestionText(q);
+                    realm.copyToRealm(question);
                 }
-            });
-        }
+            }
+        });
     }
 
     private void initRealm() {
@@ -121,8 +128,32 @@ public class SurveyActivity extends AppCompatActivity implements SurveyResponseH
     }
 
     @Override
-    public void onQuestionAnswered(String questionId, boolean response) {
-        // Update the question/
+    public void onQuestionAnswered(final String questionId, final boolean response) {
+        final String deviceUserId = SharedPrefsUtils.getInstance().uniqueUserId();
+        Handler handler = new Handler(getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                realm.executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm bgRealm) {
+                        Question question = bgRealm.where(Question.class).equalTo("questionId", questionId).findFirst();
+                        if(question != null) {
+                            Answer answer = question.getAnswers().where()
+                                    .equalTo("userId",deviceUserId)
+                                    .findFirst();
+                            if(answer == null) {
+                                answer = bgRealm.createObject(Answer.class);
+                                answer.setUserId(deviceUserId);
+                                answer.setQuestion(question);
+                            }
+                            answer.setResponse(response);
+                            question.getAnswers().add(answer);
+                        }
+                    }
+                });
+            }
+        }, 1000);
     }
 
 }

@@ -6,7 +6,6 @@ import io.realm.annotations.Required;
 
 public class Answer extends RealmObject {
 
-    @PrimaryKey
     @Required
     private String userId;
     private Question question;
