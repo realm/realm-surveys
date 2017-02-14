@@ -1,9 +1,3 @@
-var mongoose = require('mongoose');
+'use strict';
 
-var QuestionSchema = new mongoose.Schema({
-  text: String,
-  yesCount: String,
-  noCount: String
-});
-
-module.exports = mongoose.model('Question', QuestionSchema);
+var Realm = require('realm');
