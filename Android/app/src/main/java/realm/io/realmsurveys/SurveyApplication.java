@@ -9,7 +9,6 @@ public class SurveyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        SharedPrefsUtils.init(this);
         Realm.init(this);
     }
 }

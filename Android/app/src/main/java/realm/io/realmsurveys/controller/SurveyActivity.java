@@ -1,14 +1,13 @@
 package realm.io.realmsurveys.controller;
 
+import android.content.SharedPreferences;
 import android.os.Handler;
-import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import java.util.Date;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -16,18 +15,15 @@ import butterknife.ButterKnife;
 import io.realm.ObjectServerError;
 import io.realm.Realm;
 import io.realm.RealmResults;
-import io.realm.Sort;
 import io.realm.SyncConfiguration;
 import io.realm.SyncCredentials;
-import io.realm.SyncManager;
 import io.realm.SyncUser;
 import realm.io.realmsurveys.BuildConfig;
 import realm.io.realmsurveys.R;
-import realm.io.realmsurveys.SharedPrefsUtils;
 import realm.io.realmsurveys.model.Answer;
 import realm.io.realmsurveys.model.Question;
 
-public class SurveyActivity extends AppCompatActivity implements SurveyResponseHandler {
+public class SurveyActivity extends AppCompatActivity  {
 
     public static final String REALM_URL = "realm://" + BuildConfig.OBJECT_SERVER_IP + ":9080/~/survey";
     public static final String AUTH_URL = "http://" + BuildConfig.OBJECT_SERVER_IP + ":9080/auth";
@@ -35,6 +31,7 @@ public class SurveyActivity extends AppCompatActivity implements SurveyResponseH
     public static final String PASSWORD = "password";
 
     @BindView(R.id.questionsList) public RecyclerView recyclerView;
+    private SharedPreferences sharedPreferences;
 
     private Realm realm;
 
@@ -54,26 +51,6 @@ public class SurveyActivity extends AppCompatActivity implements SurveyResponseH
             realm.close();
             realm = null;
         }
-    }
-
-    private void postLogin() {
-        initRecyclerView();
-    }
-
-    private void initRecyclerView() {
-
-        RealmResults<Question> questions = realm
-                .where(Question.class)
-                .isEmpty("answers")
-                .or()
-                .beginGroup()
-                .not()
-                .contains("answers.userId", SharedPrefsUtils.getInstance().uniqueUserId())
-                .endGroup()
-                .findAllSortedAsync("timestamp");
-
-        recyclerView.setAdapter(new QuestionViewAdapter(this, questions, true));
-
     }
 
     private void initRealm() {
@@ -101,13 +78,28 @@ public class SurveyActivity extends AppCompatActivity implements SurveyResponseH
 
     }
 
+    private void postLogin() {
+
+        RealmResults<Question> questions = realm
+                .where(Question.class)
+                .isEmpty("answers")
+                .or()
+                .beginGroup()
+                .not()
+                .contains("answers.userId", uniqueUserId())
+                .endGroup()
+                .findAllSortedAsync("timestamp");
+
+        recyclerView.setAdapter(new QuestionViewAdapter(this, questions, true));
+
+    }
+
     private void logError(Throwable e) {
         Log.e("SurveyActivity", e.getMessage());
     }
 
-    @Override
     public void onQuestionAnswered(final String questionId, final boolean response) {
-        final String deviceUserId = SharedPrefsUtils.getInstance().uniqueUserId();
+        final String deviceUserId = uniqueUserId();
         Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
@@ -131,7 +123,22 @@ public class SurveyActivity extends AppCompatActivity implements SurveyResponseH
                     }
                 });
             }
-        }, 500);
+        }, 200);
+    }
+
+    private String uniqueUserId() {
+
+        if(sharedPreferences == null) {
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        }
+
+        String idForCurrentUser = sharedPreferences.getString(BuildConfig.APPLICATION_ID, null);
+        if (idForCurrentUser == null) {
+            idForCurrentUser = UUID.randomUUID().toString();
+            sharedPreferences.edit().putString(BuildConfig.APPLICATION_ID, idForCurrentUser).apply();
+        }
+
+        return idForCurrentUser;
     }
 
 }

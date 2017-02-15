@@ -1,6 +1,5 @@
 package realm.io.realmsurveys.controller;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -10,18 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.lang.ref.WeakReference;
-import java.util.UUID;
-
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 import realm.io.realmsurveys.R;
-import realm.io.realmsurveys.SharedPrefsUtils;
 import realm.io.realmsurveys.model.Question;
 
 public class QuestionViewAdapter extends RealmRecyclerViewAdapter<Question, QuestionViewAdapter.ViewHolder> {
 
-    private SurveyResponseHandler surveyResponseHandler;
+    private SurveyActivity surveyResponseHandler;
 
     public QuestionViewAdapter(@NonNull SurveyActivity surveyActivity, @Nullable OrderedRealmCollection<Question> data, boolean autoUpdate) {
         super(surveyActivity, data, autoUpdate);
