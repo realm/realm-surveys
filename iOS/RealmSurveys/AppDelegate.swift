@@ -9,8 +9,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         connect { [unowned self] in
             if let splash = self.window?.rootViewController,
-                let tvc = splash.storyboard?.instantiateViewController(withIdentifier: "Navigation") {
-                self.window!.rootViewController = tvc
+                let rootVc = splash.storyboard?.instantiateViewController(withIdentifier: "Navigation") {
+                self.window!.rootViewController = rootVc
             }
         }
         

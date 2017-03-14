@@ -7,7 +7,8 @@ struct SurveyResult {
     let noCount: Int
 }
 
-let host = "45.55.167.56"
+let host = "" // <== Realm Object Server IP HERE
+
 let user = "survey@demo.io"
 let pass = "password"
 
