@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AEB555AB41BDC92A922707FF /* Pods_RealmSurveys.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFC4C64A1B2613C65C94F5B5 /* Pods_RealmSurveys.framework */; };
+		FB35DA801E7864D3001994A3 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB35DA7F1E7864D3001994A3 /* UITableView+.swift */; };
 		FB3663891E773C7500FCBEBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3663881E773C7500FCBEBC /* AppDelegate.swift */; };
 		FB36638B1E773C7500FCBEBC /* SurveyTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB36638A1E773C7500FCBEBC /* SurveyTVC.swift */; };
 		FB36638E1E773C7500FCBEBC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB36638C1E773C7500FCBEBC /* Main.storyboard */; };
@@ -16,13 +17,13 @@
 		FBB105621E77475A00487EBF /* RealmConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB105611E77475A00487EBF /* RealmConnect.swift */; };
 		FBB105641E78294E00487EBF /* SurveyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB105631E78294E00487EBF /* SurveyCell.swift */; };
 		FBB105681E7834CC00487EBF /* RealmModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB105671E7834CC00487EBF /* RealmModels.swift */; };
-		FBB1056B1E7836DE00487EBF /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB105691E7836DE00487EBF /* UITableView+.swift */; };
 		FBB1056C1E7836DE00487EBF /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB1056A1E7836DE00487EBF /* UserDefaults+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0BF7F8F1FAD342B33CEA07D8 /* Pods-RealmSurveys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmSurveys.release.xcconfig"; path = "Pods/Target Support Files/Pods-RealmSurveys/Pods-RealmSurveys.release.xcconfig"; sourceTree = "<group>"; };
 		97855F7B7676983034E5C345 /* Pods-RealmSurveys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmSurveys.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RealmSurveys/Pods-RealmSurveys.debug.xcconfig"; sourceTree = "<group>"; };
+		FB35DA7F1E7864D3001994A3 /* UITableView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		FB3663851E773C7500FCBEBC /* RealmSurveys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmSurveys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB3663881E773C7500FCBEBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB36638A1E773C7500FCBEBC /* SurveyTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyTVC.swift; sourceTree = "<group>"; };
@@ -33,7 +34,6 @@
 		FBB105611E77475A00487EBF /* RealmConnect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmConnect.swift; sourceTree = "<group>"; };
 		FBB105631E78294E00487EBF /* SurveyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyCell.swift; sourceTree = "<group>"; };
 		FBB105671E7834CC00487EBF /* RealmModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmModels.swift; sourceTree = "<group>"; };
-		FBB105691E7836DE00487EBF /* UITableView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		FBB1056A1E7836DE00487EBF /* UserDefaults+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		FFC4C64A1B2613C65C94F5B5 /* Pods_RealmSurveys.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RealmSurveys.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -67,6 +67,42 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		FB35DA811E78653B001994A3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FB35DA7F1E7864D3001994A3 /* UITableView+.swift */,
+				FBB1056A1E7836DE00487EBF /* UserDefaults+.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		FB35DA831E786587001994A3 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FB36638A1E773C7500FCBEBC /* SurveyTVC.swift */,
+				FBB105631E78294E00487EBF /* SurveyCell.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		FB35DA841E7865AB001994A3 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				FB36638F1E773C7500FCBEBC /* Assets.xcassets */,
+				FB3663911E773C7500FCBEBC /* LaunchScreen.storyboard */,
+				FB3663941E773C7500FCBEBC /* Info.plist */,
+			);
+			name = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		FB35DA851E7865C7001994A3 /* Realm Models */ = {
+			isa = PBXGroup;
+			children = (
+				FBB105671E7834CC00487EBF /* RealmModels.swift */,
+			);
+			name = "Realm Models";
+			sourceTree = "<group>";
+		};
 		FB36637C1E773C7500FCBEBC = {
 			isa = PBXGroup;
 			children = (
@@ -88,17 +124,13 @@
 		FB3663871E773C7500FCBEBC /* RealmSurveys */ = {
 			isa = PBXGroup;
 			children = (
-				FBB105691E7836DE00487EBF /* UITableView+.swift */,
-				FBB1056A1E7836DE00487EBF /* UserDefaults+.swift */,
-				FBB105611E77475A00487EBF /* RealmConnect.swift */,
 				FB3663881E773C7500FCBEBC /* AppDelegate.swift */,
-				FB36638A1E773C7500FCBEBC /* SurveyTVC.swift */,
-				FBB105631E78294E00487EBF /* SurveyCell.swift */,
+				FBB105611E77475A00487EBF /* RealmConnect.swift */,
 				FB36638C1E773C7500FCBEBC /* Main.storyboard */,
-				FB36638F1E773C7500FCBEBC /* Assets.xcassets */,
-				FB3663911E773C7500FCBEBC /* LaunchScreen.storyboard */,
-				FB3663941E773C7500FCBEBC /* Info.plist */,
-				FBB105671E7834CC00487EBF /* RealmModels.swift */,
+				FB35DA831E786587001994A3 /* View Controllers */,
+				FB35DA851E7865C7001994A3 /* Realm Models */,
+				FB35DA811E78653B001994A3 /* Extensions */,
+				FB35DA841E7865AB001994A3 /* SupportingFiles */,
 			);
 			path = RealmSurveys;
 			sourceTree = "<group>";
@@ -230,8 +262,8 @@
 				FB36638B1E773C7500FCBEBC /* SurveyTVC.swift in Sources */,
 				FBB105641E78294E00487EBF /* SurveyCell.swift in Sources */,
 				FBB1056C1E7836DE00487EBF /* UserDefaults+.swift in Sources */,
+				FB35DA801E7864D3001994A3 /* UITableView+.swift in Sources */,
 				FB3663891E773C7500FCBEBC /* AppDelegate.swift in Sources */,
-				FBB1056B1E7836DE00487EBF /* UITableView+.swift in Sources */,
 				FBB105621E77475A00487EBF /* RealmConnect.swift in Sources */,
 				FBB105681E7834CC00487EBF /* RealmModels.swift in Sources */,
 			);

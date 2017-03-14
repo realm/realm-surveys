@@ -1,10 +1,22 @@
 import UIKit
 
+protocol AnswerDelegate {
+    func onQuestionAnswered(questionId: String, answer: Bool)
+}
+
 class SurveyCell: UITableViewCell {
     
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var answerSegControl: UISegmentedControl!
 
+    @IBAction func onAnswerQuestion() {
+        if let ans = answer {
+            answerDelegate?.onQuestionAnswered(
+                questionId: questionId, answer: ans)
+        }
+    }
+    
+    var answerDelegate: AnswerDelegate?
     var questionId: String = ""
     
     var question: String {
@@ -34,9 +46,14 @@ class SurveyCell: UITableViewCell {
         }
     }
 
-    func show(questionModel: Question) {
+    func showQuestion(questionModel: Question, delegate: AnswerDelegate? = nil) {
         questionId = questionModel.questionId
         question = questionModel.questionText
         answer = nil
+        answerDelegate = delegate
     }
+
+    
+
+    
 }

@@ -13,10 +13,8 @@ class SurveyTVC: UITableViewController {
         realm = try! Realm() // handle gracefully without crashing in a real world scenario.
         
         questions = realm.objects(Question.self)
-            .filter("answers.@count > 0")
-            //.filter("answers[SIZE] == 0  OR NONE(answers.userId == %@)", UserDefaults.userId())
+            .filter("answers.@count == 0 OR (SUBQUERY(answers, $a, $a.userId == %@).@count == 0)", UserDefaults.userId())
             .sorted(byKeyPath: "timestamp")
-        
         
     }
     
@@ -49,11 +47,28 @@ class SurveyTVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SurveyCell", for: indexPath) as! SurveyCell
         
         let questionModel = questions[indexPath.row]
-        cell.show(questionModel: questionModel)
+        cell.showQuestion(questionModel: questionModel, delegate: self)
 
         return cell
-        
     }
     
 }
+
+extension SurveyTVC: AnswerDelegate {
+    func onQuestionAnswered(questionId: String, answer: Bool) {
+        try! realm!.write {
+            let question = realm.object(ofType: Question.self, forPrimaryKey: questionId)
+            let existingAnswerForDevice = question?.answers.filter("userId == %@", UserDefaults.userId()).first
+            if existingAnswerForDevice == nil {
+                let ans = Answer()
+                ans.userId = UserDefaults.userId()
+                ans.question = question
+                ans.response.value = answer
+                question?.answers.append(ans)
+            }
+        }
+        
+    }
+}
+
 

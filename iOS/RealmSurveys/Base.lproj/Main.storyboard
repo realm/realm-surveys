@@ -68,7 +68,7 @@
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Are you an iOS developer?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KvQ-LD-PRY">
                                             <rect key="frame" x="8" y="8" width="359" height="27"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -81,6 +81,9 @@
                                                 <segment title="No"/>
                                             </segments>
                                             <color key="tintColor" red="0.92217636108398438" green="0.31725159287452698" blue="0.50595206022262573" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <connections>
+                                                <action selector="onAnswerQuestion" destination="noq-BA-F8y" eventType="valueChanged" id="2h5-kh-GlS"/>
+                                            </connections>
                                         </segmentedControl>
                                     </subviews>
                                 </tableViewCellContentView>
