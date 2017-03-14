@@ -101,16 +101,19 @@ questionsToken?.stop()
 Append to onQuestionAnswered
 
 `swift
-try! realm!.write {
-let question = realm.object(ofType: Question.self, forPrimaryKey: questionId)
-let existingAnswerForDevice = question?.answers.filter("userId == %@", UserDefaults.userId()).first
-if existingAnswerForDevice == nil {
-let ans = Answer()
-ans.userId = UserDefaults.userId()
-ans.question = question
-ans.response.value = answer
-question?.answers.append(ans)
-}
+DispatchQueue(label: "background").async {
+    let bgRealm = try! Realm()
+    try! bgRealm.write {
+        let question = bgRealm.object(ofType: Question.self, forPrimaryKey: questionId)
+        let existingAnswerForDevice = question?.answers.filter("userId == %@", UserDefaults.userId()).first
+        if existingAnswerForDevice == nil {
+            let ans = Answer()
+            ans.userId = UserDefaults.userId()
+            ans.question = question
+            ans.response.value = answer
+            question?.answers.append(ans)
+        }
+    }
 }
 `
 
