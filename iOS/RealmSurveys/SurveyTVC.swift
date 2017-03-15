@@ -4,7 +4,7 @@ import RealmSwift
 class SurveyTVC: UITableViewController {
 
     fileprivate var questions = [Question(questionId: "1", questionText: "Are you a Swift developer?"),
-                                 Question(questionId: "2", questionText: "Have you tried Realm?")]
+                                 Question(questionId: "2", questionText: "Are you using Realm?")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
