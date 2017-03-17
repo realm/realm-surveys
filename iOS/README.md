@@ -4,7 +4,7 @@ A simple survey client to receive and display questions entered in realtime and 
 
 Any number of clients may be connect to answer questions in realtime.  Answered are tallied as soon as the question is answered.
 
-This version is the Android version.
+This version is the iOS version.
 
 ## Installation Instructions
 
