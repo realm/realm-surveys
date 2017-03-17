@@ -15,7 +15,7 @@ RealmConnect.swift,  set `host` to IP of server
 `swift
 DispatchQueue.main.async(execute: completion)
 `
-with:
+### with:
 
 `swift
 let cred = SyncCredentials.usernamePassword(
@@ -48,21 +48,21 @@ Generate and Bring in Realm Models, delete Fake Models
 
 ### SurveyTVC.swift
 
-Replace
+##Replace
 
 `swift
 fileprivate var questions...
 `
 
-with:
+##with:
 `swift
-var realm: Realm!
+fileprivate var realm: Realm!
 fileprivate var questions: Results<Question>!
 fileprivate var questionsToken: NotificationToken?
 `
 ============================
 
-Append to viewDidLoad
+## Append to viewDidLoad
 `swift
 realm = try! Realm() // handle gracefully without crashing in a real world scenario.
 questions = realm.objects(Question.self)
@@ -72,7 +72,7 @@ questions = realm.objects(Question.self)
 
 ============================
 
-Add viewWillAppear/Disappear tokens
+## Add viewWillAppear/Disappear tokens
 
 `swift
 override func viewDidAppear(_ animated: Bool) {
@@ -98,7 +98,7 @@ questionsToken?.stop()
 
 ==============================
 
-Append to onQuestionAnswered
+# Append to onQuestionAnswered
 
 `swift
 DispatchQueue(label: "background").async {
