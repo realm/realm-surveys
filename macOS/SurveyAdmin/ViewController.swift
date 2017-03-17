@@ -23,7 +23,7 @@ struct SurveyResult {
     let noCount: Int
 }
 
-let host = "45.55.167.56" // <== Set your Realm Object Server host IP here.
+let host = "" // <== Set your Realm Object Server host IP here.
 let user = "survey@demo.io"
 let pass = "password"
 
