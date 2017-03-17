@@ -1,5 +1,7 @@
 # Realm-Surveys
-A reactive survey application where an Admin can enter survey questions in Realtime and tally responses.
+A simple survey client to receive and display questions entered in realtime and save user responses, designed to show the reactive nature of the [Realm Mobile Platform](https://realm.io/news/introducing-realm-mobile-platform/).
+
+Any number of clients may be connect to answer questions, entered by the admin app, in realtime.  Answered are tallied as soon as the question is answered.
 
 ![Images](Github-Image.png)
 
