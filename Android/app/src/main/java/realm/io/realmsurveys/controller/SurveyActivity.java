@@ -28,6 +28,7 @@ import java.util.UUID;
 
 import io.realm.ObjectServerError;
 import io.realm.Realm;
+import io.realm.RealmRecyclerViewAdapter;
 import io.realm.RealmResults;
 import io.realm.SyncConfiguration;
 import io.realm.SyncCredentials;
@@ -39,65 +40,20 @@ import realm.io.realmsurveys.model.Question;
 
 public class SurveyActivity extends AppCompatActivity  {
 
-    public static final String TAG = SurveyActivity.class.getName();
-
-    public static final String REALM_URL = "realm://" + BuildConfig.OBJECT_SERVER_IP + ":9080/~/survey";
-    public static final String AUTH_URL = "http://" + BuildConfig.OBJECT_SERVER_IP + ":9080/auth";
-    public static final String ID = "survey@demo.io";
-    public static final String PASSWORD = "password";
-
     private RecyclerView recyclerView;
     private SharedPreferences sharedPreferences;
     private Realm realm;
+    private RealmResults<Question> questions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
         recyclerView = (RecyclerView) findViewById(R.id.questionsList);
-        login();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(realm != null) {
-            realm.removeAllChangeListeners();
-            realm.close();
-            realm = null;
-        }
-    }
-
-    private void login() {
-
-        SyncUser user = SyncUser.currentUser();
-        if(user != null) {
-            postLogin(user);
-
-        } else {
-
-            final SyncCredentials syncCredentials = SyncCredentials.usernamePassword(ID, PASSWORD, false);
-
-            SyncUser.loginAsync(syncCredentials, AUTH_URL, new SyncUser.Callback() {
-                @Override
-                public void onSuccess(SyncUser user) { postLogin(user); }
-
-                @Override
-                public void onError(ObjectServerError error) {
-                    logError(error);
-                }
-            });
-
-        }
-    }
-
-    private void postLogin(SyncUser user) {
-
-        setRealmDefaultConfig(user);
 
         realm = Realm.getDefaultInstance();
 
-        RealmResults<Question> questions = realm
+        questions = realm
                 .where(Question.class)
                 .isEmpty("answers")
                 .or()
@@ -111,43 +67,33 @@ public class SurveyActivity extends AppCompatActivity  {
 
     }
 
-    private void setRealmDefaultConfig(SyncUser user) {
-        Log.d(TAG, "Connecting to Sync Server at : ["  + REALM_URL.replaceAll("~", user.getIdentity()) + "]");
-        final SyncConfiguration syncConfiguration = new SyncConfiguration.Builder(user, REALM_URL).schemaVersion(1).build();
-        Realm.setDefaultConfiguration(syncConfiguration);
-    }
-
-    private void logError(Throwable e) {
-        Log.e(TAG, "Realm Error", e);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        recyclerView.setAdapter(null);
+        realm.close();
     }
 
     public void onQuestionAnswered(final String questionId, final boolean response) {
         final String deviceUserId = uniqueUserId();
-        Handler handler = new Handler(getMainLooper());
-        handler.postDelayed(new Runnable() {
+        realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
-            public void run() {
-                realm.executeTransactionAsync(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm bgRealm) {
-                        Question question = bgRealm.where(Question.class).equalTo("questionId", questionId).findFirst();
-                        if(question != null) {
-                            Answer answer = question.getAnswers().where()
-                                    .equalTo("userId",deviceUserId)
-                                    .findFirst();
-                            if(answer == null) {
-                                answer = bgRealm.createObject(Answer.class);
-                                answer.setUserId(deviceUserId);
-                                answer.setQuestion(question);
-                            }
-                            answer.setResponse(response);
-                            question.getAnswers().add(answer);
-                        }
+            public void execute(Realm bgRealm) {
+                Question question = bgRealm.where(Question.class).equalTo("questionId", questionId).findFirst();
+                if(question != null) {
+                    Answer answer = question.getAnswers().where()
+                            .equalTo("userId",deviceUserId)
+                            .findFirst();
+                    if(answer == null) {
+                        answer = bgRealm.createObject(Answer.class);
+                        answer.setUserId(deviceUserId);
+                        answer.setQuestion(question);
+                        answer.setResponse(response);
+                        question.getAnswers().add(answer);
                     }
-                });
+                }
             }
-        }, 200); // delayed for 200ms to show the user their selection for 200ms
-                 // before it is answered and disappears from the list.
+        });
     }
 
     private String uniqueUserId() {

@@ -35,7 +35,7 @@ public class QuestionViewAdapter extends RealmRecyclerViewAdapter<Question, Ques
     private SurveyActivity surveyResponseHandler;
 
     public QuestionViewAdapter(@NonNull SurveyActivity surveyActivity, @Nullable OrderedRealmCollection<Question> data, boolean autoUpdate) {
-        super(data, true);
+        super(data, autoUpdate);
         surveyResponseHandler = surveyActivity;
      }
 

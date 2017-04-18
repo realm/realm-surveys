@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /*
  * Copyright 2017 Realm Inc.
  *
@@ -17,7 +16,7 @@
  */
 -->
 <resources>
-    <string name="app_name">RealmSurveys</string>
+    <string name="app_name">Realm Surveys</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
 </resources>

@@ -18,7 +18,7 @@
 import Foundation
 import RealmSwift
 
-let host = "" // <-- Enter your Realm Object Server IP here
+let host = "107.170.21.92" // <-- Enter your Realm Object Server IP here
 let serverURL = URL(string: "http://\(host):9080")!
 let syncURL = URL(string: "realm://\(host):9080/~/survey")!
 
