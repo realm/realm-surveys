@@ -45,8 +45,10 @@ You'll be required to create an admin account the first time you run an instance
 
 # Known Issues
 
-Android version animates items moving out of the Recycler View, but when you answer a question in the middle of the list of questions, the
-animation fades out and back in questions that have moved up the list, instead of just moving them.  
+#### Android Version
+* Animates items moving out of the Recycler View, but when you answer a question in the middle of the list of questions, the animation fades out and back in questions that have moved up the list, instead of just moving them.  
+
+* On fresh install on a new device (or virtual device) the questions fail to load the data.  You need to close and reopen the app once, then all is well.  This issue is being tracked at: https://github.com/realm/realm-java/issues/4517
 
 # Contributing
 
