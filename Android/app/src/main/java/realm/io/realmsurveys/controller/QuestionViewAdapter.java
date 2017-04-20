@@ -32,11 +32,15 @@ import realm.io.realmsurveys.model.Question;
 
 public class QuestionViewAdapter extends RealmRecyclerViewAdapter<Question, QuestionViewAdapter.ViewHolder> {
 
-    private SurveyActivity surveyResponseHandler;
+    public interface SurveyResponseDelegate {
+        void onQuestionAnswered(String questionId, boolean response);
+    }
 
-    public QuestionViewAdapter(@NonNull SurveyActivity surveyActivity, @Nullable OrderedRealmCollection<Question> data, boolean autoUpdate) {
+    private SurveyResponseDelegate surveyResponseDelegate;
+
+    public QuestionViewAdapter(@NonNull SurveyResponseDelegate surveyResponseDelegate, @Nullable OrderedRealmCollection<Question> data, boolean autoUpdate) {
         super(data, autoUpdate);
-        surveyResponseHandler = surveyActivity;
+        this.surveyResponseDelegate = surveyResponseDelegate;
      }
 
     @Override
@@ -66,7 +70,7 @@ public class QuestionViewAdapter extends RealmRecyclerViewAdapter<Question, Ques
                     holder.yesButton.setEnabled(true);
                 }
 
-                surveyResponseHandler.onQuestionAnswered(question.getQuestionId(), v == holder.yesButton);
+                surveyResponseDelegate.onQuestionAnswered(question.getQuestionId(), v == holder.yesButton);
             }
         };
 

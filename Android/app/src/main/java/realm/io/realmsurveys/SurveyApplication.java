@@ -19,6 +19,8 @@ package realm.io.realmsurveys;
 import android.app.Application;
 
 import io.realm.Realm;
+import io.realm.log.LogLevel;
+import io.realm.log.RealmLog;
 
 public class SurveyApplication extends Application {
 
@@ -26,5 +28,6 @@ public class SurveyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Realm.init(this);
+        RealmLog.setLevel(LogLevel.TRACE);
     }
 }

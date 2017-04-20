@@ -26,8 +26,13 @@ import android.util.Log;
 
 import java.util.UUID;
 
+import io.realm.ObjectChangeSet;
 import io.realm.ObjectServerError;
+import io.realm.OrderedCollectionChangeSet;
+import io.realm.OrderedRealmCollectionChangeListener;
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmObjectChangeListener;
 import io.realm.RealmRecyclerViewAdapter;
 import io.realm.RealmResults;
 import io.realm.SyncConfiguration;
@@ -38,22 +43,28 @@ import realm.io.realmsurveys.R;
 import realm.io.realmsurveys.model.Answer;
 import realm.io.realmsurveys.model.Question;
 
-public class SurveyActivity extends AppCompatActivity  {
+public class SurveyActivity extends AppCompatActivity implements QuestionViewAdapter.SurveyResponseDelegate {
 
     private RecyclerView recyclerView;
     private SharedPreferences sharedPreferences;
     private Realm realm;
-    private RealmResults<Question> questions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
         recyclerView = (RecyclerView) findViewById(R.id.questionsList);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // Realm lifecycle managed in onStart/onStop due to bug in Version Realm Java - 3.1.3
+        // - https://github.com/realm/realm-java/issues/4517
         realm = Realm.getDefaultInstance();
 
-        questions = realm
+        RealmResults<Question> questions = realm
                 .where(Question.class)
                 .isEmpty("answers")
                 .or()
@@ -64,16 +75,16 @@ public class SurveyActivity extends AppCompatActivity  {
                 .findAllSortedAsync("timestamp");
 
         recyclerView.setAdapter(new QuestionViewAdapter(this, questions, true));
-
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         recyclerView.setAdapter(null);
         realm.close();
     }
 
+    @Override
     public void onQuestionAnswered(final String questionId, final boolean response) {
         final String deviceUserId = uniqueUserId();
         realm.executeTransactionAsync(new Realm.Transaction() {
