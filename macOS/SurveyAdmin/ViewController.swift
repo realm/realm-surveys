@@ -23,7 +23,7 @@ struct SurveyResult {
     let noCount: Int
 }
 
-let host = "107.170.21.92" // <== Set your Realm Object Server host IP here.
+let host = "127.0.0.1" // <== Set your Realm Object Server host IP here.
 let user = "survey@demo.io"
 let pass = "password"
 
@@ -139,7 +139,6 @@ class ViewController: NSViewController {
             }
             
             var config = Realm.Configuration.defaultConfiguration
-            config.schemaVersion = 1
             config.syncConfiguration = SyncConfiguration(user: user, realmURL: syncURL)
             Realm.Configuration.defaultConfiguration = config
             
