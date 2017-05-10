@@ -33,7 +33,7 @@ Follow the README files in the platform-specific subdirectory of this repository
 ## Client Apps
 
 * [Android Java](Java)
-
+* [Android Kotlin](Kotlin)
 * [iOS](iOS)
 
 # Connecting to the Realm Mobile Platform
