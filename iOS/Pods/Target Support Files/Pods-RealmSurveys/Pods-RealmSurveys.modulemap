@@ -1,6 +1,0 @@
-framework module Pods_RealmSurveys {
-  umbrella header "Pods-RealmSurveys-umbrella.h"
-
-  export *
-  module * { export * }
-}
