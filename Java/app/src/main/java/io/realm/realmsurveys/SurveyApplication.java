@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package realm.io.realmsurveys;
+package io.realm.realmsurveys;
 
 import android.app.Application;
 

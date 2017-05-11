@@ -1,10 +1,9 @@
-package realm.io.realmsurveys.controller;
+package io.realm.realmsurveys.controller;
 
 import android.content.Intent;
-import android.os.Handler;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 
 import io.realm.ObjectServerError;
@@ -12,8 +11,7 @@ import io.realm.Realm;
 import io.realm.SyncConfiguration;
 import io.realm.SyncCredentials;
 import io.realm.SyncUser;
-import realm.io.realmsurveys.R;
-import realm.io.realmsurveys.model.Question;
+import io.realm.realmsurveys.R;
 
 public class SplashActivity extends AppCompatActivity {
 

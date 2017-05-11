@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package realm.io.realmsurveys.controller;
+package io.realm.realmsurveys.controller;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,8 +27,8 @@ import android.widget.TextView;
 
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
-import realm.io.realmsurveys.R;
-import realm.io.realmsurveys.model.Question;
+import io.realm.realmsurveys.R;
+import io.realm.realmsurveys.model.Question;
 
 public class QuestionViewAdapter extends RealmRecyclerViewAdapter<Question, QuestionViewAdapter.ViewHolder> {
 

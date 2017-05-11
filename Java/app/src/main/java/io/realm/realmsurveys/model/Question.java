@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package realm.io.realmsurveys.model;
+package io.realm.realmsurveys.model;
 
 import java.util.Date;
 

@@ -14,34 +14,22 @@
  * limitations under the License.
  */
 
-package realm.io.realmsurveys.controller;
+package io.realm.realmsurveys.controller;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import java.util.UUID;
 
-import io.realm.ObjectChangeSet;
-import io.realm.ObjectServerError;
-import io.realm.OrderedCollectionChangeSet;
-import io.realm.OrderedRealmCollectionChangeListener;
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
-import io.realm.RealmObjectChangeListener;
-import io.realm.RealmRecyclerViewAdapter;
 import io.realm.RealmResults;
-import io.realm.SyncConfiguration;
-import io.realm.SyncCredentials;
-import io.realm.SyncUser;
-import realm.io.realmsurveys.BuildConfig;
-import realm.io.realmsurveys.R;
-import realm.io.realmsurveys.model.Answer;
-import realm.io.realmsurveys.model.Question;
+import io.realm.realmsurveys.BuildConfig;
+import io.realm.realmsurveys.R;
+import io.realm.realmsurveys.model.Answer;
+import io.realm.realmsurveys.model.Question;
 
 public class SurveyActivity extends AppCompatActivity implements QuestionViewAdapter.SurveyResponseDelegate {
 
@@ -54,14 +42,7 @@ public class SurveyActivity extends AppCompatActivity implements QuestionViewAda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
         recyclerView = (RecyclerView) findViewById(R.id.questionsList);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        // Realm lifecycle managed in onStart/onStop due to bug in Version Realm Java - 3.1.3
-        // - https://github.com/realm/realm-java/issues/4517
         realm = Realm.getDefaultInstance();
 
         RealmResults<Question> questions = realm
@@ -69,8 +50,8 @@ public class SurveyActivity extends AppCompatActivity implements QuestionViewAda
                 .isEmpty("answers")
                 .or()
                 .beginGroup()
-                .not()
-                .contains("answers.userId", uniqueUserId())
+                    .not()
+                    .contains("answers.userId", uniqueUserId())
                 .endGroup()
                 .findAllSortedAsync("timestamp");
 
@@ -78,8 +59,8 @@ public class SurveyActivity extends AppCompatActivity implements QuestionViewAda
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         recyclerView.setAdapter(null);
         realm.close();
     }

@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package realm.io.realmsurveys.model;
+package io.realm.realmsurveys.model;
 
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
 public class Answer extends RealmObject {
