@@ -14,6 +14,7 @@ Any number of clients may be connect to answer questions, entered by the admin a
 # Requirements
 
 * Realm Mobile Platform
+* For admin app, you need OSX & Xcode
 
 # Setting Up Realm Mobile Platform
 
@@ -27,13 +28,13 @@ In order to properly use Realm Surveys, an instance of the Realm Object Server m
 1. Start by running the Admin App for macOS, following the instructions in the README file in the [Admin macOS App](macOS) sub project.
 1. Run the platform-specific client of your choice by following the instructions in the respective client sub project.
 
-# Project Subdirectories
+## Sub Projects
 
-## Admin App
+### Admin App
 
 * [Admin macOS App](macOS)
 
-## Client Apps
+### Client Apps
 
 * [Android Java](Java)
 * [Android Kotlin](Kotlin)
