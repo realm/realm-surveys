@@ -14,18 +14,23 @@
  * limitations under the License.
  */
 
-package realm.io.realmsurveys
+package io.realm.realmsurveys.model
 
-import android.app.Application
+import java.util.Date
 
-import io.realm.Realm
-import io.realm.log.LogLevel
-import io.realm.log.RealmLog
+import io.realm.RealmList
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import io.realm.annotations.Required
 
-class SurveyApplication : Application() {
+open class Question : RealmObject() {
 
-    override fun onCreate() {
-        super.onCreate()
-        Realm.init(this)
-    }
+    @PrimaryKey
+    @Required
+    var questionId: String? = null
+    var timestamp: Date? = null
+    var answers: RealmList<Answer>? = null
+
+    @Required
+    var questionText: String? = null
 }

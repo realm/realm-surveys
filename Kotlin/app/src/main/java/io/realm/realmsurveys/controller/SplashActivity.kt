@@ -1,4 +1,4 @@
-package realm.io.realmsurveys.controller
+package io.realm.realmsurveys.controller
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -7,7 +7,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
 import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
-import realm.io.realmsurveys.R
+import io.realm.realmsurveys.R
 
 class SplashActivity : AppCompatActivity(), AnkoLogger {
 

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /*
  * Copyright 2017 Realm Inc.
  *
@@ -20,57 +19,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/cardview_light_background"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    android:background="@color/cardview_light_background">
 
-<RelativeLayout
+    <RelativeLayout
 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/questionText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:padding="6dp"
-        android:textSize="18sp"
-        android:gravity="center_vertical"
-        android:textAppearance="?attr/textAppearanceListItem"
-        tools:text="Are you currently an Android Developer?"
-        />
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_below="@id/questionText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-       <Button
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:id="@+id/yesBtn"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/questionText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/yes"
-            android:textColor="@color/survey_btn_text_color"
-            android:backgroundTint="@color/survey_btn_background_tint"/>
+            android:layout_gravity="top"
+            android:gravity="center_vertical"
+            android:padding="6dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="18sp"
+            tools:text="Are you currently an Android Developer?" />
 
-
-        <Button
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:id="@+id/noBtn"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/no"
-            android:textColor="@color/survey_btn_text_color"
-            android:backgroundTint="@color/survey_btn_background_tint"
-            android:elevation="0px"
-            />
+            android:layout_below="@id/questionText"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/yesBtn"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/survey_btn_background_tint"
+                android:text="@string/yes"
+                android:textColor="@color/survey_btn_text_color" />
 
-</RelativeLayout>
+
+            <Button
+                android:id="@+id/noBtn"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/survey_btn_background_tint"
+                android:elevation="0px"
+                android:text="@string/no"
+                android:textColor="@color/survey_btn_text_color" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

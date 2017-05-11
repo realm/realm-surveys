@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-package realm.io.realmsurveys.model
+package io.realm.realmsurveys.model
 
-import java.util.Date
-
-import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.Required
 
-open class Question : RealmObject() {
-
-    @PrimaryKey
-    @Required
-    var questionId: String? = null
-    var timestamp: Date? = null
-    var answers: RealmList<Answer>? = null
+open class Answer : RealmObject() {
 
     @Required
-    var questionText: String? = null
+    var userId: String? = null
+    var question: Question? = null
+    var response: Boolean? = null
 }

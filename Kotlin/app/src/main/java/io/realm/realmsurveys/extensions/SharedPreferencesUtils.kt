@@ -1,7 +1,7 @@
-package realm.io.realmsurveys.extensions
+package io.realm.realmsurveys.extensions
 
 import android.content.SharedPreferences
-import realm.io.realmsurveys.BuildConfig
+import io.realm.realmsurveys.BuildConfig
 import java.util.*
 
 fun SharedPreferences.uniqueUserId(): String {

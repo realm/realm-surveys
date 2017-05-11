@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package realm.io.realmsurveys.controller
+package io.realm.realmsurveys.controller
 
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -23,10 +23,10 @@ import android.support.v7.widget.RecyclerView
 import io.realm.Realm
 import io.realm.RealmResults
 import org.jetbrains.anko.find
-import realm.io.realmsurveys.R
-import realm.io.realmsurveys.extensions.uniqueUserId
-import realm.io.realmsurveys.model.Answer
-import realm.io.realmsurveys.model.Question
+import io.realm.realmsurveys.R
+import io.realm.realmsurveys.extensions.uniqueUserId
+import io.realm.realmsurveys.model.Answer
+import io.realm.realmsurveys.model.Question
 
 class SurveyActivity : AppCompatActivity() {
 

@@ -16,7 +16,7 @@
  */
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="realm.io.realmsurveys">
+    package="io.realm.realmsurveys">
 
     <application
         android:name=".SurveyApplication"
