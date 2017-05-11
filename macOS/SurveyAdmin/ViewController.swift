@@ -139,6 +139,7 @@ class ViewController: NSViewController {
             }
             
             var config = Realm.Configuration.defaultConfiguration
+            config.schemaVersion = 1
             config.syncConfiguration = SyncConfiguration(user: user, realmURL: syncURL)
             Realm.Configuration.defaultConfiguration = config
             
