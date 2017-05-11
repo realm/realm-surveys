@@ -17,7 +17,7 @@ Any number of clients may be connect to answer questions, entered by the admin a
 
 # Setting Up Realm Mobile Platform
 
-In order to properly use Realm Puzzle, an instance of the Realm Object Server must be running for which each client copy of the app can connect.
+In order to properly use Realm Surveys, an instance of the Realm Object Server must be running for which each client copy of the app can connect.
 
 * The [macOS version](https://realm.io/docs/get-started/installation/mac/) can be downloaded and run as a `localhost` on any desktop Mac.
 * The [Linux version](https://realm.io/docs/get-started/installation/linux/) can be installed on a publicly accessible server and accessed over the internet.
@@ -45,7 +45,7 @@ You'll be required to create an admin account the first time you run an instance
 
 # Known Issues
 
-#### Android Version
+#### Android Versions
 * Animates items moving out of the Recycler View, but when you answer a question in the middle of the list of questions, the animation fades out and back in questions that have moved up the list, instead of just moving them.  
 
 # Contributing
