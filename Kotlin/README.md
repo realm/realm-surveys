@@ -1,17 +1,11 @@
-# Realm-Surveys Kotlin
+# Realm-Surveys Kotlin (Android Client)
 
-A simple survey client to receive and display questions entered in realtime and save user responses, designed to show the reactive nature of the [Realm Mobile Platform](https://realm.io/news/introducing-realm-mobile-platform/).
-
-Any number of clients may be connected to answer questions in realtime.  Answered are tallied as soon as the question is answered.
-
-This version is the Android Kotlin version.
+A Kotlin (Android) version of the [Realm Surveys Demo App](https://github.com/realm-demos/realm-surveys)
 
 ## Installation Instructions
 
-1. [Download the Realm Mobile Platform](https://realm.io/docs/realm-mobile-platform/get-started/) Developer Edition.
-2. Run a local instance of the Realm Mobile Platform.
-3. Create a new user, with the email `survey@demo.io` and the password `password`.
-4. Open the Android Project located at `Realm-Surveys/Android` with Android Studio
-5. Open the `SplashActivity.kt` file.  Inside there is host variable that you need to set to your Realm Object Server IP.
-6. Build the Survey app and deploy it to an Android device.
-7. When app starts you will be automatically be logged in as survey@demo.io and be able to start answering survey questions.
+1. Follow instructions for installing and running the [Realm Admin App](../macOS)
+1. Open the Android Project located at `Realm-Surveys/Kotlin` with Android Studio
+1. Open the `SplashActivity.kt` file.  Inside there is host variable that you need to set to your Realm Object Server IP.
+1. Build the Survey app and deploy it to an Android device.
+1. When app starts you will be automatically be logged in as `survey@demo.io` and be able to start answering questions entered by the admin.
