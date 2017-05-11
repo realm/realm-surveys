@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
 
     public static final String TAG = SplashActivity.class.getName();
 
-    public static final String HOST = "192.168.1.162"; // <-- Enter your Realm Object Server IP here
+    public static final String HOST = ""; // <-- Enter your Realm Object Server IP here
     public static final String REALM_URL = "realm://" + HOST + ":9080/~/survey";
     public static final String SERVER_URL = "http://" + HOST + ":9080";
     public static final String ID = "survey@demo.io";
