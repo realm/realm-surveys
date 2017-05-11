@@ -56,7 +56,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void setRealmDefaultConfig(SyncUser user) {
         Log.d(TAG, "Connecting to Sync Server at : ["  + REALM_URL.replaceAll("~", user.getIdentity()) + "]");
-        final SyncConfiguration syncConfiguration = new SyncConfiguration.Builder(user, REALM_URL).schemaVersion(4).build();
+        final SyncConfiguration syncConfiguration = new SyncConfiguration.Builder(user, REALM_URL).schemaVersion(1).build();
         Realm.setDefaultConfiguration(syncConfiguration);
     }
 
