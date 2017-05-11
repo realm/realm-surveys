@@ -1,5 +1,3 @@
-# Realm-Surveys macOS
-
 # Realm-Surveys Admin App
 
 This is the macOS Admin app that you use to enter questions.  It is written in Swift.
