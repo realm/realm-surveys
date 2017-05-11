@@ -2,7 +2,7 @@
 
 A simple survey client to receive and display questions entered in realtime and save user responses, designed to show the reactive nature of the [Realm Mobile Platform](https://realm.io/news/introducing-realm-mobile-platform/).
 
-Any number of clients may be connect to answer questions in realtime.  Answered are tallied as soon as the question is answered.
+Any number of clients may be connected to answer questions in realtime.  Answered are tallied as soon as the question is answered.
 
 This version is the Android Kotlin version.
 
