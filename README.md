@@ -24,24 +24,20 @@ In order to properly use Realm Surveys, an instance of the Realm Object Server m
 
 # Building and Running
 
-Follow the README files in the platform-specific subdirectory of this repository.
+1. Start by running the Admin App for macOS, following the instructions in the README file in the [Admin macOS App](macOS) sub project.
+1. Run the platform-specific client of your choice by following the instructions in the respective client sub project.
+
+# Project Subdirectories
 
 ## Admin App
 
-* [macOS](macOS)
+* [Admin macOS App](macOS)
 
 ## Client Apps
 
 * [Android Java](Java)
 * [Android Kotlin](Kotlin)
 * [iOS](iOS)
-
-# Connecting to the Realm Mobile Platform
-When launching the app each time, you'll be presented with a login form in order to connect to the right Realm Object Server instance.
-
-For the server URL field, you may simply enter `localhost` if you're running out of the iOS Simulator with the Realm Object Server at the same time. For iOS devices running on the same network as that Mac, you can alt-click on the Wi-Fi icon in the macOS status bar to get the Mac's local IP address. You can then manually enter this into the server URL field on the iOS device.
-
-You'll be required to create an admin account the first time you run an instance of the Realm Object Server. You may use this account when logging into Realm Survey by entering in the same username/password pair. Alternatively, you may also register new user accounts from the form by tapping the 'Register a new account' button.
 
 # Known Issues
 
