@@ -1,10 +1,8 @@
 # Realm-Surveys macOS
 
-A simple survey client to receive and display questions entered in realtime and save user responses, designed to show the reactive nature of the [Realm Mobile Platform](https://realm.io/news/introducing-realm-mobile-platform/).
+# Realm-Surveys Admin App
 
-Any number of clients may be connected to answer questions in realtime.  Answered are tallied as soon as the question is answered.
-
-This version is the macOS Admin app that you use to enter questions.
+This is the macOS Admin app that you use to enter questions.  It is written in Swift.
 
 ## Installation Instructions
 
