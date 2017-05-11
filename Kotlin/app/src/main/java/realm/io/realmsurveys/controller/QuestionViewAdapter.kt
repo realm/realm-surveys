@@ -28,8 +28,10 @@ import io.realm.RealmRecyclerViewAdapter
 import realm.io.realmsurveys.R
 import realm.io.realmsurveys.model.Question
 
-class QuestionViewAdapter(data: OrderedRealmCollection<Question>?,
-                          private val surveyResponseDelegate: ((questionId: String, answer: Boolean) -> Any)) : RealmRecyclerViewAdapter<Question, QuestionViewAdapter.ViewHolder>(data, true) {
+class QuestionViewAdapter(
+        data: OrderedRealmCollection<Question>?,
+        private val surveyResponseDelegate: ((questionId: String, answer: Boolean) -> Any))
+    : RealmRecyclerViewAdapter<Question, QuestionViewAdapter.ViewHolder>(data, true) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.survey_item, parent, false)

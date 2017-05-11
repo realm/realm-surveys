@@ -27,6 +27,5 @@ class SurveyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         Realm.init(this)
-        RealmLog.setLevel(LogLevel.TRACE)
     }
 }

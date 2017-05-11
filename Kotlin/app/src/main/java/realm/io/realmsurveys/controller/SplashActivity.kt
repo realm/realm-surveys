@@ -1,12 +1,12 @@
 package realm.io.realmsurveys.controller
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import io.realm.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
 import org.jetbrains.anko.info
+import org.jetbrains.anko.startActivity
 import realm.io.realmsurveys.R
 
 class SplashActivity : AppCompatActivity(), AnkoLogger {
@@ -35,15 +35,15 @@ class SplashActivity : AppCompatActivity(), AnkoLogger {
             }
 
             override fun onError(error: ObjectServerError) {
-                logError(error)
+                error("Error", error)
             }
         })
-
     }
 
     private fun postLogin(user: SyncUser) {
         setRealmDefaultConfig(user)
-        goTo(SurveyActivity::class.java)
+        startActivity<SurveyActivity>()
+        finish()
     }
 
 
@@ -52,15 +52,4 @@ class SplashActivity : AppCompatActivity(), AnkoLogger {
         val syncConfiguration = SyncConfiguration.Builder(user, REALM_URL).build()
         Realm.setDefaultConfiguration(syncConfiguration)
     }
-
-    private fun goTo(activityClass: Class<out AppCompatActivity>) {
-        val intent = Intent(this, activityClass)
-        startActivity(intent)
-        finish()
-    }
-
-    private fun logError(e: Throwable) {
-        error("Error", e)
-    }
-
 }

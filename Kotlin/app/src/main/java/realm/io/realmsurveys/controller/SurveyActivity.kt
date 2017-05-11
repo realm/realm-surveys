@@ -21,6 +21,7 @@ import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import io.realm.Realm
+import io.realm.RealmResults
 import org.jetbrains.anko.find
 import realm.io.realmsurveys.R
 import realm.io.realmsurveys.extensions.uniqueUserId
@@ -32,13 +33,14 @@ class SurveyActivity : AppCompatActivity() {
     val recyclerView by lazy { find<RecyclerView>(R.id.questionsList) }
     val sharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(application) }
     lateinit var realm: Realm
+    lateinit var questions: RealmResults<Question>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survey)
-        realm = Realm.getDefaultInstance()
 
-        val questions = realm
+        realm = Realm.getDefaultInstance()
+        questions = realm
                 .where(Question::class.java)
                 .isEmpty("answers")
                 .or()
@@ -63,21 +65,20 @@ class SurveyActivity : AppCompatActivity() {
         realm.executeTransactionAsync { bgRealm ->
 
             val question = bgRealm.where(Question::class.java).equalTo("questionId", questionId).findFirst()
+            if (question != null) {
+                var answer: Answer? = question.answers?.where()
+                        ?.equalTo("userId", deviceUserId)
+                        ?.findFirst()
 
-            var answer: Answer? = question?.answers?.where()
-                    ?.equalTo("userId", deviceUserId)
-                    ?.findFirst()
-
-            if (answer == null) {
-                answer = bgRealm.createObject(Answer::class.java)
-                answer!!.userId = deviceUserId
-                answer.question = question
-                answer.response = response
-                question.answers?.add(answer)
+                if (answer == null) {
+                    answer = bgRealm.createObject(Answer::class.java)!!
+                    answer.userId = deviceUserId
+                    answer.question = question
+                    answer.response = response
+                    question.answers?.add(answer)
+                }
             }
         }
-
-
     }
 
 }
