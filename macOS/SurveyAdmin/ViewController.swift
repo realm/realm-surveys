@@ -36,7 +36,6 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var newQuestionText: NSTextField!
     
-    
     var realm: Realm?
     var questions: Results<Question>?
     var questionsToken: NotificationToken?
@@ -45,66 +44,45 @@ class ViewController: NSViewController {
     override func viewWillAppear() {
         super.viewDidAppear()
         connect { [unowned self] in
-            self.realm = try! Realm(configuration: Realm.Configuration.defaultConfiguration)
-            if let realm = self.realm {
-                self.questions =
-                    realm.objects(Question.self)
-                        .sorted(byKeyPath: Question.primaryKey()!)
-                
-                self.questionsToken =
-                    self.questions?.addNotificationBlock { [weak self] changes in
-                        self?.refresh()
-                }
-                self.refresh();
+            self.realm = try! Realm()
+            guard let realm = self.realm else { return }
+            self.questions = realm.objects(Question.self).sorted(byKeyPath: Question.primaryKey()!)
+
+            self.questionsToken = self.questions?.observe { [weak self] changes in
+                self?.refresh()
             }
+            self.refresh();
         }
-    }
-    
-    override func viewWillDisappear() {
-        super.viewWillDisappear()
-        questionsToken?.stop()
     }
 
-    
-    
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        questionsToken?.invalidate()
+    }
+
     func refresh() {
-        
-        if self.questions == nil {
-            return
-        }
-        
+        guard let questions = self.questions else { return }
+
         scores.removeAll()
-        for question in self.questions! {
-            
-            var yesCount = 0
-            var noCount = 0
-            if question.answers.isEmpty == false {
-                yesCount = question.answers.filter(
-                    NSPredicate(format:"response == true")).count
-                noCount = question.answers.filter(
-                    NSPredicate(format:"response == false")).count
-            }
-            
+        for question in questions {
             scores.append(
                 SurveyResult(
                     question: question.questionText,
-                    yesCount: yesCount,
-                    noCount : noCount)
+                    yesCount: question.answers.filter("response == true").count,
+                    noCount: question.answers.filter("response == false").count)
             )
         }
-    
-    
+
+
         tableView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now()+5, execute: refresh)
     }
-    
+
     @IBAction func addNewQuestion(_ sender: Any) {
-        
         let newQuestionText = self.newQuestionText.stringValue
         
-        if newQuestionText.isEmpty == false
-            && self.realm != nil {
-            
+        if newQuestionText.isEmpty == false && self.realm != nil {
+
             if newQuestionText == "clear" {
                 try! self.realm!.write {
                     self.realm!.deleteAll()
@@ -114,22 +92,18 @@ class ViewController: NSViewController {
                 try! self.realm!.write {
                     let questionCount = (self.questions?.count ?? 0) + 1
                     let newQuestion = Question(
-                        questionId: String(format: "%d", questionCount),
+                        questionId: String(questionCount),
                         questionText: self.newQuestionText.stringValue)
                     realm?.add(newQuestion)
                 }
             }
             
             self.newQuestionText.stringValue = ""
-            
         }
-        
     }
-    
-    
+
     func connect(completion: @escaping () -> Void) {
-        let cred = SyncCredentials.usernamePassword(
-            username: user, password: pass, register: false)
+        let cred = SyncCredentials.usernamePassword(username: user, password: pass, register: false)
         
         SyncUser.logIn(with: cred, server: serverURL) {user, error in
             guard let user = user else {
@@ -146,7 +120,6 @@ class ViewController: NSViewController {
             DispatchQueue.main.async(execute: completion)
         }
     }
-    
 }
 
 
@@ -158,7 +131,6 @@ extension ViewController: NSTableViewDataSource {
 
 extension ViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        
         guard let cell = tableView.make(
             withIdentifier: tableColumn!.identifier,
             owner: nil) as? NSTableCellView else {

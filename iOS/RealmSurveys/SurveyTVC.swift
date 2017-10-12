@@ -37,7 +37,7 @@ class SurveyTVC: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        questionsToken = questions.addNotificationBlock { [weak self] changes in
+        questionsToken = questions.observe { [weak self] changes in
             
             guard let strongSelf = self else { return }
             switch changes {
@@ -52,7 +52,7 @@ class SurveyTVC: UITableViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        questionsToken?.stop()
+        questionsToken?.invalidate()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
